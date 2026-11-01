@@ -1,0 +1,1746 @@
+
+/* =========================================
+   MOSFET LAB — DESIGN SYSTEM
+   ========================================= */
+
+:root {
+  font-family: Inter, "Segoe UI", system-ui, sans-serif;
+  color-scheme: dark;
+
+  --bg: #080f1e;
+  --surface: #111c30;
+  --surface-2: #17243a;
+  --surface-3: #1d2d46;
+
+  --border: #263750;
+  --border-hover: #3b82a8;
+
+  --text: #e8f0fa;
+  --muted: #91a3bb;
+
+  --primary: #22d3ee;
+  --primary-dark: #0891b2;
+  --blue: #38bdf8;
+
+  --success: #22c55e;
+  --danger: #f87171;
+  --warning: #fbbf24;
+
+  --radius: 12px;
+  --shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Inter, "Segoe UI", system-ui, sans-serif;
+  line-height: 1.5;
+}
+
+/* =========================================
+   HEADER AND NAVIGATION
+   ========================================= */
+
+header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 24px;
+  background: #0d1729;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  z-index: 5;
+}
+
+h1 {
+  margin: 0;
+  font-size: 21px;
+  font-weight: 800;
+  letter-spacing: 1.8px;
+}
+
+h1 span {
+  color: var(--primary);
+}
+
+h2 {
+  line-height: 1.25;
+}
+
+h3 {
+  margin: 0 0 12px;
+  font-size: 13px;
+  font-weight: 750;
+  letter-spacing: 1px;
+  color: var(--blue);
+  text-transform: uppercase;
+}
+
+nav {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* =========================================
+   BUTTONS
+   ========================================= */
+
+button {
+  background: var(--surface-2);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 13px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  transition:
+    background 0.18s ease,
+    border-color 0.18s ease,
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+button:hover {
+  border-color: var(--primary);
+  background: var(--surface-3);
+}
+
+button:active {
+  transform: translateY(1px);
+}
+
+button.on {
+  background: #075985;
+  border-color: var(--primary);
+  color: #ecfeff;
+  box-shadow: 0 0 0 2px rgba(34, 211, 238, 0.1);
+}
+
+button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* =========================================
+   MAIN LAYOUT AND PANELS
+   ========================================= */
+
+main {
+  width: 100%;
+  max-width: 1550px;
+  margin: auto;
+  padding: 22px;
+}
+
+.panel {
+  min-width: 0;
+  padding: 18px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.grid3 {
+  display: grid;
+  grid-template-columns: 300px minmax(0, 1fr);
+  gap: 16px;
+}
+
+.grid3 .wide {
+  grid-column: 2;
+}
+
+.grid2 {
+  display: grid;
+  grid-template-columns: 320px minmax(0, 1fr);
+  gap: 16px;
+}
+
+.grid3c {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.grid2e {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+/* =========================================
+   SIMULATOR CONTROLS
+   ========================================= */
+
+.ctl {
+  margin-bottom: 17px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+}
+
+.ctl input[type="range"] {
+  width: 100%;
+  margin-top: 10px;
+  accent-color: var(--primary);
+  cursor: pointer;
+}
+
+input[type="number"] {
+  width: 76px;
+  background: #091323;
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  padding: 6px 7px;
+  font-family: inherit;
+  font-size: 13px;
+}
+
+input:focus,
+textarea:focus {
+  outline: 2px solid rgba(34, 211, 238, 0.35);
+  border-color: var(--primary);
+}
+
+.btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin: 10px 0;
+  font-size: 13px;
+}
+
+/* =========================================
+   MOSFET DIAGRAM
+   ========================================= */
+
+.mos {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: #091323;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+/* =========================================
+   READINGS AND RESULTS
+   ========================================= */
+
+.badge {
+  display: inline-block;
+  padding: 5px 12px;
+  border-radius: 6px;
+  color: #07111e;
+  font-size: 12px;
+  font-weight: 800;
+  margin-bottom: 9px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+td {
+  padding: 8px 5px;
+  border-bottom: 1px solid var(--border);
+}
+
+td:last-child {
+  text-align: right;
+  font-family: "SFMono-Regular", Consolas, monospace;
+  color: var(--primary);
+}
+
+.expl {
+  padding: 11px 13px;
+  border-left: 3px solid var(--primary);
+  border-radius: 5px;
+  background: #0b1729;
+  font-size: 13px;
+}
+
+.note {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+pre {
+  margin: 5px 0;
+  color: #cbd5e1;
+  font-size: 13px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+pre.final {
+  color: var(--primary);
+  font-weight: 750;
+}
+
+/* =========================================
+   CARDS AND LEARNING CONTENT
+   ========================================= */
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 14px;
+}
+
+.card {
+  width: 100%;
+  padding: 16px;
+  text-align: left;
+  border-radius: 10px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+}
+
+.card:hover {
+  border-color: var(--primary);
+  box-shadow: 0 5px 18px rgba(34, 211, 238, 0.08);
+}
+
+.card small {
+  display: block;
+  margin-top: 5px;
+  color: var(--muted);
+}
+
+.topic {
+  margin-bottom: 9px;
+}
+
+.opt {
+  display: block;
+  width: 100%;
+  margin: 8px 0;
+  padding: 12px;
+  text-align: left;
+  line-height: 1.5;
+}
+
+.opt.good {
+  background: #14532d;
+  border-color: var(--success);
+}
+
+.opt.bad {
+  background: #7f1d1d;
+  border-color: var(--danger);
+}
+
+/* =========================================
+   TEXT INPUTS
+   ========================================= */
+
+textarea {
+  width: 100%;
+  min-height: 75px;
+  margin: 6px 0;
+  padding: 10px;
+  background: #091323;
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 13px;
+  resize: vertical;
+}
+
+.tag {
+  display: inline-block;
+  padding: 4px 9px;
+  border-radius: 5px;
+  font-size: 12px;
+  font-weight: 750;
+  color: #07111e;
+}
+
+/* =========================================
+   LIGHT THEME — LEARNING PAGES
+   Add the learning-page class to the
+   appropriate wrapper in the next step.
+   ========================================= */
+
+.learning-page {
+  color-scheme: light;
+  background: #f4f7fb;
+  color: #172338;
+}
+
+.learning-page .panel,
+.learning-page .card {
+  background: #ffffff;
+  color: #172338;
+  border-color: #dce5ef;
+  box-shadow: 0 4px 14px rgba(30, 50, 80, 0.06);
+}
+
+.learning-page h3 {
+  color: #087eaa;
+}
+
+.learning-page .note,
+.learning-page .card small {
+  color: #64748b;
+}
+
+.learning-page button {
+  background: #eef4fa;
+  color: #172338;
+  border-color: #d5e0eb;
+}
+
+.learning-page button:hover {
+  background: #e0f2fe;
+  border-color: #0891b2;
+}
+
+.learning-page button.on {
+  background: #0369a1;
+  color: white;
+}
+
+.learning-page .expl {
+  background: #eff8ff;
+  color: #172338;
+}
+
+.learning-page input[type="number"],
+.learning-page textarea {
+  background: #ffffff;
+  color: #172338;
+  border-color: #cbd5e1;
+}
+
+.learning-page td {
+  border-color: #e2e8f0;
+}
+
+.learning-page td:last-child {
+  color: #0369a1;
+}
+
+.learning-page .opt.good {
+  background: #dcfce7;
+  color: #14532d;
+}
+
+.learning-page .opt.bad {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+/* =========================================
+   ACCESSIBILITY
+   ========================================= */
+
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* =========================================
+   RESPONSIVE LAYOUT
+   ========================================= */
+@media (max-width: 500px) {
+  .learn-heading {
+    padding: 16px;
+  }
+
+  .learn-content {
+    padding: 18px;
+  }
+
+  .learn-content > h2 {
+    font-size: 22px;
+  }
+
+  .learn-topic-list {
+    grid-template-columns: 1fr;
+  }
+
+  .learn-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .learn-navigation button {
+    flex: 1;
+  }
+}
+
+/* =========================================
+   ADVANCED MOSFET PARAMETER DISPLAY
+   ========================================= */
+
+.derived-kn {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  margin: 18px 0;
+  padding: 16px;
+  background: #0f1e33;
+  border: 1px solid #29415f;
+  border-radius: 12px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.derived-kn-heading {
+  color: #94a3b8;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+}
+
+.derived-kn-value {
+  color: #38d6ed;
+  font-size: 27px;
+  font-weight: 800;
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.derived-kn-value span {
+  color: #94a3b8;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.derived-kn-formula {
+  color: #cbd5e1;
+  font-size: 12px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+/* =========================================
+   PRESET BUTTON SPACING
+   ========================================= */
+
+.btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  align-items: center;
+}
+
+.btns button {
+  padding: 10px 15px;
+  border-radius: 9px;
+}
+/* =========================================
+   MOSFET LAB — PROFESSIONAL LIGHT THEME
+   ========================================= */
+
+:root {
+  color-scheme: light;
+
+  --bg: #f3f5f8;
+  --surface: #ffffff;
+  --surface-2: #f1f4f8;
+  --surface-3: #e8edf3;
+
+  --border: #dce2e9;
+  --border-hover: #8ba9c8;
+
+  --text: #243247;
+  --muted: #68778b;
+
+  --primary: #2878b9;
+  --primary-dark: #1d6098;
+  --blue: #347eae;
+
+  --success: #23845b;
+  --danger: #c84c4c;
+  --warning: #bd8525;
+
+  --radius: 10px;
+  --shadow: 0 2px 8px rgba(30, 45, 65, 0.05);
+}
+
+/* Page and header */
+
+body {
+  background: #f3f5f8;
+  color: #243247;
+}
+
+header {
+  background: #ffffff;
+  border-bottom: 1px solid #dce2e9;
+  box-shadow: 0 2px 5px rgba(30, 45, 65, 0.04);
+}
+
+h1 span {
+  color: #2878b9;
+}
+
+main.learning-page {
+  background: #f3f5f8;
+  color: #243247;
+}
+
+/* Navigation */
+
+header nav button {
+  background: #f1f4f8;
+  color: #34445a;
+  border-color: #dce2e9;
+}
+
+header nav button:hover {
+  background: #e5edf5;
+  border-color: #8ba9c8;
+}
+
+header nav button.on {
+  background: #2878b9;
+  border-color: #2878b9;
+  color: #ffffff;
+  box-shadow: none;
+}
+
+/* Panels and cards */
+
+.learning-page .panel,
+.learning-page .card,
+.learn-sidebar,
+.learn-content {
+  background: #ffffff;
+  color: #243247;
+  border: 1px solid #dce2e9;
+  box-shadow: 0 2px 8px rgba(30, 45, 65, 0.05);
+}
+
+.learning-page h3 {
+  color: #347eae;
+}
+
+/* Buttons */
+
+.learning-page button {
+  background: #f1f4f8;
+  color: #34445a;
+  border: 1px solid #d5dee8;
+  box-shadow: none;
+}
+
+.learning-page button:hover {
+  background: #e5edf5;
+  border-color: #8ba9c8;
+}
+
+.learning-page button.on {
+  background: #2878b9;
+  color: #ffffff;
+  border-color: #2878b9;
+}
+
+/* Inputs and sliders */
+
+.learning-page input[type="number"],
+.learning-page textarea {
+  background: #ffffff;
+  color: #243247;
+  border-color: #d5dee8;
+}
+
+.learning-page input[type="range"] {
+  accent-color: #2878b9;
+}
+
+.learning-page input:focus,
+.learning-page textarea:focus {
+  outline-color: rgba(40, 120, 185, 0.25);
+  border-color: #2878b9;
+}
+
+/* MOSFET diagram */
+
+.learning-page .mos {
+  background: #f8fafc;
+  border-color: #dce2e9;
+}
+
+/* Calculation and explanation areas */
+
+.learning-page .expl {
+  background: #f1f6fb;
+  color: #34445a;
+  border-color: #347eae;
+}
+
+.learning-page pre {
+  color: #34445a;
+}
+
+.learning-page pre.final {
+  color: #1d6098;
+}
+
+/* Calculated kn card */
+
+.learning-page .derived-kn {
+  background: #f5f8fc;
+  border-color: #dce2e9;
+}
+
+.learning-page .derived-kn-heading {
+  color: #68778b;
+}
+
+.learning-page .derived-kn-value {
+  color: #2878b9;
+}
+
+.learning-page .derived-kn-value span,
+.learning-page .derived-kn-formula {
+  color: #68778b;
+}
+
+/* Tables */
+
+.learning-page td {
+  border-color: #e3e8ee;
+}
+
+.learning-page td:last-child {
+  color: #2878b9;
+}
+
+/* Learning header — remove the gradient */
+
+.learn-heading {
+  background: #ffffff;
+  border-color: #dce2e9;
+}
+
+.learn-heading h2 {
+  color: #243247;
+}
+
+.learn-heading p {
+  color: #68778b;
+}
+
+/* Learning content */
+
+.learn-explanation {
+  background: #f5f8fc;
+  border-left-color: #347eae;
+}
+
+.learn-explanation h3 {
+  color: #347eae;
+}
+
+.learn-tip {
+  background: #fbf7ed;
+  border-color: #eadfbd;
+}
+
+/* Responsive safety */
+
+.learning-page,
+.learning-page * {
+  min-width: 0;
+}
+/* =========================================
+   LEARN PAGE — RESTORE DESKTOP SIDEBAR
+   ========================================= */
+
+@media (min-width: 851px) {
+  .learn-layout {
+    display: grid !important;
+    grid-template-columns: 290px minmax(0, 1fr) !important;
+    gap: 18px;
+    align-items: start;
+  }
+
+  .learn-sidebar {
+    display: block;
+    position: sticky;
+    top: 16px;
+    max-height: calc(100vh - 32px);
+    overflow-y: auto;
+  }
+
+  .learn-topic-list {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 6px;
+    max-height: 610px;
+    overflow-y: auto;
+  }
+
+  .learn-topic {
+    width: 100%;
+  }
+}
+/* =========================================
+   LEARN MOSFET — FINAL LAYOUT POLISH
+   ========================================= */
+
+.learn-page {
+  width: 100%;
+  max-width: 1500px;
+  margin: 0 auto;
+  gap: 24px;
+}
+
+/* Top heading card */
+
+.learn-heading {
+  padding: 28px 30px;
+  border-radius: 14px;
+  border: 1px solid #dce4ed;
+  background: #ffffff;
+  gap: 24px;
+}
+
+.learn-heading h2 {
+  font-size: 25px;
+  font-weight: 750;
+  letter-spacing: -0.5px;
+  margin-bottom: 8px;
+}
+
+/* Main sidebar and lesson layout */
+
+.learn-layout {
+  display: grid !important;
+  grid-template-columns: 270px minmax(0, 1fr) !important;
+  gap: 22px;
+  align-items: start;
+}
+
+/* Sidebar */
+
+.learn-sidebar {
+  padding: 20px;
+  border-radius: 13px;
+  position: sticky;
+  top: 16px;
+  max-height: calc(100vh - 32px);
+  overflow-y: auto;
+}
+
+.learn-sidebar h3 {
+  margin-bottom: 8px;
+}
+
+.learn-sidebar-note {
+  margin-bottom: 18px;
+}
+
+/* Topic buttons */
+
+.learn-topic-list {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px;
+  max-height: none;
+  overflow: visible;
+}
+
+.learn-topic {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 44px;
+  padding: 9px 11px;
+  border: 1px solid #e0e6ee;
+  border-radius: 9px;
+  text-align: left;
+  line-height: 1.4;
+}
+
+.learn-topic > span:nth-child(2) {
+  flex: 1;
+  text-align: left;
+}
+
+.topic-number {
+  flex: 0 0 28px;
+  width: 28px;
+  height: 28px;
+}
+
+.topic-arrow {
+  margin-left: auto;
+}
+
+/* Lesson content card */
+
+.learn-content {
+  padding: clamp(22px, 3vw, 36px);
+  border-radius: 13px;
+  min-height: 500px;
+}
+
+.learn-content-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.learn-kicker {
+  display: block;
+  letter-spacing: 1.2px;
+}
+
+.learn-content > h2 {
+  margin: 22px 0 26px;
+  font-size: 28px;
+  color: #243247;
+}
+
+/* Individual lesson sections */
+
+.learn-explanation {
+  padding: 19px 21px;
+  margin-top: 15px;
+  background: #f7f9fc;
+  border: 1px solid #e5eaf0;
+  border-left: 4px solid #347eae;
+  border-radius: 10px;
+}
+
+.learn-explanation h3 {
+  margin-bottom: 12px;
+  letter-spacing: 0.8px;
+}
+
+.learn-explanation p {
+  max-width: 78ch;
+  color: #46566b;
+  font-size: 14px;
+  line-height: 1.8;
+  margin-top: 5px;
+  margin-bottom: 8px;
+}
+
+/* Better reading space */
+
+.learn-tip {
+  padding: 18px 20px;
+  border-radius: 10px;
+}
+
+.learn-actions {
+  padding-top: 12px;
+  border-top: 1px solid #e5eaf0;
+}
+
+/* Mobile layout */
+
+@media (max-width: 850px) {
+  .learn-layout {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .learn-sidebar {
+    position: static;
+    max-height: none;
+  }
+
+  .learn-topic-list {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-height: 350px;
+    overflow-y: auto;
+  }
+}
+
+@media (max-width: 500px) {
+  .learn-content {
+    padding: 17px;
+  }
+
+  .learn-content > h2 {
+    font-size: 22px;
+  }
+
+  .learn-topic-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================================
+   MOSFET LAB — READABILITY IMPROVEMENTS
+   ========================================= */
+
+/* General text */
+body {
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* Panel headings */
+h3 {
+  font-size: 15px;
+  letter-spacing: 0.7px;
+}
+
+/* Navigation */
+header nav button {
+  font-size: 14px;
+  padding: 10px 15px;
+}
+
+/* Buttons */
+button {
+  font-size: 14px;
+  padding: 10px 15px;
+}
+
+/* Simulator controls */
+.ctl {
+  margin-bottom: 20px;
+}
+
+.row {
+  font-size: 15px;
+}
+
+input[type="number"] {
+  font-size: 15px;
+  padding: 8px;
+  width: 85px;
+}
+
+/* Readings and tables */
+table {
+  font-size: 15px;
+}
+
+td {
+  padding: 11px 7px;
+}
+
+/* Calculation panel */
+pre {
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+/* Explanations and notes */
+.expl {
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.note {
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+/* Calculated kn */
+.derived-kn-heading {
+  font-size: 13px;
+}
+
+.derived-kn-value {
+  font-size: 30px;
+}
+
+.derived-kn-formula {
+  font-size: 14px;
+}
+
+/* Learn MOSFET */
+.learn-heading h2 {
+  font-size: 28px;
+}
+
+.learn-heading p {
+  font-size: 16px;
+}
+
+.learn-progress strong {
+  font-size: 25px;
+}
+
+.learn-sidebar h3 {
+  font-size: 14px;
+}
+
+.learn-sidebar-note {
+  font-size: 14px;
+}
+
+.learn-topic {
+  font-size: 14px;
+  padding: 12px;
+  line-height: 1.5;
+}
+
+.learn-topic-list {
+  gap: 9px;
+}
+
+.learn-content > h2 {
+  font-size: 31px;
+}
+
+.learn-kicker {
+  font-size: 13px;
+}
+
+.learn-status {
+  font-size: 13px;
+}
+
+.learn-explanation {
+  padding: 22px;
+}
+
+.learn-explanation h3 {
+  font-size: 13px;
+}
+
+.learn-explanation p {
+  font-size: 16px;
+  line-height: 1.85;
+}
+
+.learn-tip p {
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+/* Graph and experiment descriptions */
+.learning-page p {
+  font-size: 16px;
+  line-height: 1.75;
+}
+
+/* Mobile readability */
+@media (max-width: 600px) {
+  body {
+    font-size: 15px;
+  }
+
+  .learn-content > h2 {
+    font-size: 25px;
+  }
+
+  .learn-explanation p {
+    font-size: 15px;
+  }
+
+  .learn-topic {
+    font-size: 14px;
+  }
+}
+
+/* =========================================
+   MOSFET LAB — DASHBOARD REDESIGN
+   ========================================= */
+
+.dashboard-page {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.85fr) minmax(0, 1.5fr);
+  gap: 22px;
+  align-items: stretch;
+}
+
+/* Main dashboard panels */
+
+.dashboard-page > .panel {
+  padding: 28px;
+  border-radius: 14px;
+  min-height: 340px;
+  background: #ffffff;
+  border: 1px solid #dce4ed;
+  box-shadow: 0 3px 12px rgba(30, 45, 65, 0.05);
+}
+
+.dashboard-page > .panel h3 {
+  font-size: 16px;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+  color: #2878b9;
+}
+
+/* Welcome section */
+
+.dashboard-page > .panel:first-child > p {
+  font-size: 17px;
+  line-height: 1.85;
+  color: #46566b;
+  margin-bottom: 22px;
+}
+
+.dashboard-page > .panel:first-child .mos {
+  max-width: 100%;
+  border-radius: 12px;
+  background: #f5f8fc;
+}
+
+/* Start Here cards */
+
+.dashboard-page .cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.dashboard-page .card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  min-height: 145px;
+  width: 100%;
+  padding: 21px;
+  text-align: left;
+  white-space: normal;
+  background: #f8fafc;
+  border: 1px solid #dce4ed;
+  border-radius: 12px;
+  transition: border-color 0.2s ease, background 0.2s ease,
+    box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.dashboard-page .card:hover {
+  background: #eff6fc;
+  border-color: #80b4da;
+  box-shadow: 0 5px 15px rgba(40, 120, 185, 0.09);
+  transform: translateY(-2px);
+}
+
+.dashboard-page .card b {
+  display: block;
+  color: #243b53;
+  font-size: 17px;
+  line-height: 1.4;
+  font-weight: 700;
+}
+
+.dashboard-page .card small {
+  display: block;
+  margin-top: 10px;
+  color: #68778b;
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+/* Responsive dashboard */
+
+@media (max-width: 950px) {
+  .dashboard-page {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .dashboard-page > .panel {
+    min-height: auto;
+  }
+}
+
+@media (max-width: 550px) {
+  .dashboard-page > .panel {
+    padding: 19px;
+  }
+
+  .dashboard-page .cards {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-page .card {
+    min-height: 115px;
+  }
+}
+
+/* =========================================
+   CALCULATION PANEL — LARGER TYPOGRAPHY
+   ========================================= */
+
+.calc-panel {
+  padding: 25px;
+}
+
+.calc-panel h3 {
+  font-size: 17px;
+  margin-bottom: 18px;
+  letter-spacing: 0.8px;
+}
+
+.calc-panel pre {
+  font-size: 16px;
+  line-height: 1.9;
+  font-family: "Segoe UI", Arial, sans-serif;
+  color: #34445a;
+  margin: 9px 0;
+  padding: 7px 10px;
+  overflow-wrap: anywhere;
+}
+
+.calc-panel pre.final {
+  font-size: 19px;
+  font-weight: 750;
+  color: #1769a6;
+  background: #edf5fc;
+  border-radius: 8px;
+  padding: 12px;
+  margin-top: 14px;
+}
+
+@media (max-width: 600px) {
+  .calc-panel pre {
+    font-size: 14px;
+  }
+
+  .calc-panel pre.final {
+    font-size: 16px;
+  }
+}
+
+/* =========================================
+   MOSFET LAB — UNIFIED DARK THEME
+   ========================================= */
+
+:root {
+  color-scheme: dark;
+
+  --bg: #080f1e;
+  --surface: #111c30;
+  --surface-2: #17243a;
+  --surface-3: #1d2d46;
+
+  --border: #263750;
+  --border-hover: #3b82a8;
+
+  --text: #e8f0fa;
+  --muted: #91a3bb;
+
+  --primary: #22d3ee;
+  --primary-dark: #0891b2;
+  --blue: #38bdf8;
+
+  --success: #22c55e;
+  --danger: #f87171;
+  --warning: #fbbf24;
+}
+
+/* Main application */
+
+body {
+  background: #080f1e;
+  color: #e8f0fa;
+}
+
+main.learning-page {
+  background: #080f1e;
+  color: #e8f0fa;
+}
+
+/* Header and navigation */
+
+header {
+  background: #0d1729;
+  border-color: #263750;
+}
+
+header h1 {
+  color: #e8f0fa;
+}
+
+header h1 span {
+  color: #22d3ee;
+}
+
+header nav button {
+  background: #17243a;
+  color: #e8f0fa;
+  border-color: #263750;
+}
+
+header nav button:hover {
+  background: #1d2d46;
+  border-color: #22d3ee;
+}
+
+header nav button.on {
+  background: #075985;
+  border-color: #22d3ee;
+  color: #ffffff;
+}
+
+/* Panels and cards */
+
+.learning-page .panel,
+.learning-page .card,
+.learn-sidebar,
+.learn-content {
+  background: #111c30;
+  color: #e8f0fa;
+  border: 1px solid #263750;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.16);
+}
+
+.learning-page h3,
+.learn-sidebar h3 {
+  color: #38bdf8;
+}
+
+/* Buttons */
+
+.learning-page button {
+  background: #17243a;
+  color: #e8f0fa;
+  border-color: #334760;
+}
+
+.learning-page button:hover {
+  background: #1d2d46;
+  border-color: #22d3ee;
+}
+
+.learning-page button.on {
+  background: #075985;
+  color: #ffffff;
+  border-color: #22d3ee;
+}
+
+/* Inputs and sliders */
+
+.learning-page input[type="number"],
+.learning-page textarea {
+  background: #091323;
+  color: #e8f0fa;
+  border-color: #334760;
+}
+
+.learning-page input[type="range"] {
+  accent-color: #22d3ee;
+}
+
+/* MOSFET diagram */
+
+.learning-page .mos {
+  background: #091323;
+  border-color: #334760;
+}
+
+/* Tables and readings */
+
+.learning-page td {
+  color: #cbd5e1;
+  border-color: #263750;
+}
+
+.learning-page td:last-child {
+  color: #22d3ee;
+}
+
+.learning-page .badge {
+  color: #07111e;
+}
+
+/* Calculation panel */
+
+.learning-page pre {
+  color: #cbd5e1;
+}
+
+.learning-page pre.final,
+.learning-page .calc-panel pre.final {
+  color: #22d3ee;
+  background: #152943;
+}
+
+.learning-page .expl {
+  background: #0b1729;
+  color: #cbd5e1;
+  border-color: #38bdf8;
+}
+
+/* Notes */
+
+.learning-page .note {
+  color: #91a3bb;
+}
+
+/* Calculated kn card */
+
+.learning-page .derived-kn {
+  background: #0b1729;
+  border-color: #334760;
+}
+
+.learning-page .derived-kn-heading {
+  color: #91a3bb;
+}
+
+.learning-page .derived-kn-value {
+  color: #22d3ee;
+}
+
+.learning-page .derived-kn-value span {
+  color: #91a3bb;
+}
+
+.learning-page .derived-kn-formula {
+  color: #cbd5e1;
+}
+
+/* Dashboard */
+
+.dashboard-page > .panel {
+  background: #111c30;
+  border-color: #263750;
+}
+
+.dashboard-page > .panel h3 {
+  color: #38bdf8;
+}
+
+.dashboard-page > .panel:first-child > p {
+  color: #cbd5e1;
+}
+
+.dashboard-page .card {
+  background: #17243a;
+  border-color: #334760;
+}
+
+.dashboard-page .card:hover {
+  background: #1d2d46;
+  border-color: #22d3ee;
+  box-shadow: 0 5px 18px rgba(34, 211, 238, 0.07);
+}
+
+.dashboard-page .card b {
+  color: #e8f0fa;
+}
+
+.dashboard-page .card small {
+  color: #a0afc2;
+}
+
+/* Learning page heading */
+
+.learn-heading {
+  background: #111c30;
+  border-color: #263750;
+}
+
+.learn-heading h2 {
+  color: #e8f0fa;
+}
+
+.learn-heading p {
+  color: #a0afc2;
+}
+
+.learn-progress strong {
+  color: #22d3ee;
+}
+
+.learn-progress span {
+  color: #91a3bb;
+}
+
+.progress-track {
+  background: #263750;
+}
+
+.progress-fill {
+  background: #22d3ee;
+}
+
+/* Learning sidebar */
+
+.learn-sidebar {
+  background: #111c30;
+}
+
+.learn-sidebar-note {
+  color: #91a3bb;
+}
+
+.learn-topic {
+  background: #17243a;
+  color: #cbd5e1;
+  border-color: #263750;
+}
+
+.learn-topic:hover {
+  background: #1d2d46;
+  border-color: #38bdf8;
+}
+
+.learn-topic.active {
+  background: #123650;
+  color: #7dd3fc;
+  border-color: #38bdf8;
+}
+
+.topic-number {
+  background: #263750;
+  color: #e8f0fa;
+}
+
+.learn-topic.active .topic-number {
+  background: #087eaa;
+  color: #ffffff;
+}
+
+.learn-kicker {
+  color: #38bdf8;
+}
+
+.learn-status {
+  background: #123650;
+  color: #7dd3fc;
+}
+
+/* Learning content */
+
+.learn-content {
+  background: #111c30;
+}
+
+.learn-content > h2 {
+  color: #e8f0fa;
+}
+
+.learn-explanation {
+  background: #17243a;
+  border-color: #263750;
+  border-left-color: #38bdf8;
+}
+
+.learn-explanation h3 {
+  color: #38bdf8;
+}
+
+.learn-explanation p {
+  color: #cbd5e1;
+}
+
+.learn-tip {
+  background: #292719;
+  border-color: #71602d;
+}
+
+.learn-tip strong {
+  color: #fbbf24;
+}
+
+.learn-tip p {
+  color: #e2d8b7;
+}
+
+.learn-actions {
+  border-color: #263750;
+}
+
+.learn-sim-button {
+  background: #075985;
+  color: #ffffff;
+  border-color: #0891b2;
+}
+
+.learn-sim-button:hover {
+  background: #0c4a6e;
+  color: #ffffff;
+}
+
+/* Learning quiz answers */
+
+.learning-page .opt.good {
+  background: #14532d;
+  color: #dcfce7;
+  border-color: #22c55e;
+}
+
+.learning-page .opt.bad {
+  background: #7f1d1d;
+  color: #fee2e2;
+  border-color: #f87171;
+}
+
+/* Form elements */
+
+.learning-page textarea::placeholder {
+  color: #71839b;
+}
+
+/* Calculation panel */
+
+.learning-page .calc-panel pre {
+  color: #cbd5e1;
+}
+
+.learning-page .calc-panel pre.final {
+  color: #22d3ee;
+  background: #152943;
+}
+
+/* Scrollbars */
+
+.learn-topic-list,
+.learn-sidebar {
+  scrollbar-color: #475b76 #111c30;
+  scrollbar-width: thin;
+}
+/* Guided experiment observation table */
+
+.experiment-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  margin: 12px 0;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.experiment-table-wrap table {
+  min-width: 760px;
+  font-size: 13px;
+}
+
+.experiment-table-wrap td {
+  white-space: nowrap;
+  padding: 10px;
+}
+
+.learning-page .experiment-table-wrap {
+  background: var(--surface);
+}
