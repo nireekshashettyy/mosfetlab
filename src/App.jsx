@@ -133,9 +133,9 @@ function Simulator({ p, set, playing, setPlaying }) {
       <section className="panel">
         <h3>ELECTRICAL INPUTS</h3>
 
-        <Control label="VGS" unit="V" value={p.vgs} min={0} max={5} step={0.05} onChange={v => set({ vgs: v })} />
-        <Control label="VDS" unit="V" value={p.vds} min={0} max={5} step={0.05} onChange={v => set({ vds: v })} />
-        <Control label="VTH" unit="V" value={p.vth} min={0.2} max={3} step={0.05} onChange={v => set({ vth: v })} />
+        <Control label="VGS" unit="V" value={p.vgs} min={0} max={25} step={0.05} onChange={v => set({ vgs: v })} />
+        <Control label="VDS" unit="V" value={p.vds} min={0} max={25} step={0.05} onChange={v => set({ vds: v })} />
+        <Control label="VTH" unit="V" value={p.vth} min={0.2} max={10} step={0.05} onChange={v => set({ vth: v })} />
 
         <Control label="W (Width)" unit="µm" value={p.w} min={1} max={100} step={1} onChange={v => set({ w: v })} />
         <Control label="L (Length)" unit="µm" value={p.l} min={0.1} max={10} step={0.1} onChange={v => set({ l: v })} />
@@ -234,9 +234,9 @@ const equation =
   const [k, setK] = useState(0)
   return <div className="grid2"><section className="panel"><h3>GRAPH LABORATORY</h3>
     <div className="btns"><button className={mode === 'output' ? 'on' : ''} onClick={() => setMode('output')}>Output (ID–VDS)</button><button className={mode === 'transfer' ? 'on' : ''} onClick={() => setMode('transfer')}>Transfer (ID–VGS)</button></div>
-    <Control label="VGS" unit="V" value={p.vgs} min={0} max={5} step={0.05} onChange={v => p.set({ vgs: v })} />
-    <Control label="VDS" unit="V" value={p.vds} min={0} max={5} step={0.05} onChange={v => p.set({ vds: v })} />
-    <Control label="VTH" unit="V" value={p.vth} min={0.2} max={3} step={0.05} onChange={v => p.set({ vth: v })} />
+    <Control label="VGS" unit="V" value={p.vgs} min={0} max={25} step={0.05} onChange={v => p.set({ vgs: v })} />
+    <Control label="VDS" unit="V" value={p.vds} min={0} max={25} step={0.05} onChange={v => p.set({ vds: v })} />
+    <Control label="VTH" unit="V" value={p.vth} min={0.2} max={10} step={0.05} onChange={v => p.set({ vth: v })} />
    <Control label="W (Width)" unit="µm" value={p.w} min={1} max={100} step={1} onChange={v => p.set({ w: v })} />
 
 <Control label="L (Length)" unit="µm" value={p.l} min={0.1} max={10} step={0.1} onChange={v => p.set({ l: v })} />
@@ -435,15 +435,15 @@ function Compare({ p0 }) {
               <MosfetSVG {...q} compact />
 
               <Control label="VGS" unit="V" value={q.vgs}
-                min={0} max={5} step={0.05}
+                min={0} max={25} step={0.05}
                 onChange={v => upd(name, { vgs: v })} />
 
               <Control label="VDS" unit="V" value={q.vds}
-                min={0} max={5} step={0.05}
+                min={0} max={25} step={0.05}
                 onChange={v => upd(name, { vds: v })} />
 
               <Control label="VTH" unit="V" value={q.vth}
-                min={0.2} max={3} step={0.05}
+                min={0.2} max={10} step={0.05}
                 onChange={v => upd(name, { vth: v })} />
 
               <Control label="W" unit="µm" value={q.w}
